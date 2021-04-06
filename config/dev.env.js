@@ -6,7 +6,7 @@ var dev = {
   mode: 'development',
   target: 'web',
   devServer: {
-    contentBase: path.join(__dirname, 'build'),
+    contentBase: path.join(__dirname, '../build'),
     port: 8888,
     compress: true,
     hot: true

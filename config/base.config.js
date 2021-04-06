@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -73,10 +74,19 @@ module.exports = {
     })
   ],
   optimization: {
+    // 是否开启代码压缩优化，mode为开发环境false，生产环境为true
+    // minimize:false,
     // 优化压缩
     minimizer: [
       // 压缩css文件插件css-minimizer-webpack-plugin
-      new CssMinimizerWebpackPlugin()
-    ]
+      new CssMinimizerWebpackPlugin(),
+      // 压缩js
+      new TerserPlugin({
+        // 多进程压缩 默认true 进程数为os.cpus().length - 1
+        parallel: true,
+        // 提取注释默认true 提取规则：/^\**!|@preserve|@license|@cc_on/i
+        extractComments: false
+      })
+    ],
   }
 }
