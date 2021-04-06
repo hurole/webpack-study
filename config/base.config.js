@@ -51,7 +51,7 @@ module.exports = {
     }),
     // 提取css为单独文件的插件mini-css-extract-plugin
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[chunkhash:8].css',
+      filename: 'css/[name].[contenthash].css',
       chunkFilename: 'css/[id].css'
     }),
     new CopyPlugin({
@@ -88,5 +88,9 @@ module.exports = {
         extractComments: false
       })
     ],
+    // moduleIds:"deterministic",
+    //设置chunkId的计算规则 natural自然数按照引入顺序增加 deterministic文件名hash named文件名
+    // 默认生产环境deterministic 开发named
+    // chunkIds:"natural"
   }
 }
