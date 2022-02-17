@@ -2,7 +2,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -11,6 +10,12 @@ module.exports = {
     filename: "[name].js",
     chunkFilename: "js/[id].chunk.js",
     clean: true,
+    // assetModuleFilename: "images/[name].[hash:8][ext]",
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "../src"),
+    },
   },
   module: {
     rules: [
@@ -32,10 +37,17 @@ module.exports = {
           // 提取css文件
           {
             loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: "../",
+            },
           },
           "css-loader",
           "postcss-loader",
         ],
+      },
+      {
+        test: /\.(png|gif|jpe?g)$/i,
+        type: "asset/resource",
       },
     ],
   },
@@ -44,12 +56,11 @@ module.exports = {
       title: "webpack-study",
       template: "./public/index.html",
       //favicon图标
-      favicon: "./src/Multiavatar-hurole.png",
+      favicon: "./src/assets/Multiavatar-hurole.png",
     }),
     // 提取css为单独文件的插件mini-css-extract-plugin
     new MiniCssExtractPlugin({
-      filename: "css/[name].[contenthash].css",
-      chunkFilename: "css/[id].css",
+      filename: "css/[name].[hash:8].css",
     }),
     new CopyPlugin({
       patterns: [

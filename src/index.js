@@ -1,4 +1,4 @@
-import './index.css'
+import './styles/index.css'
 
 import $ from 'jquery';
 class Person {
@@ -15,11 +15,11 @@ console.log(p);
 
 setTimeout(function () {
   // dynamic import js
-  import('./async.js').then(res => {
+  import('./js/async.js').then(res => {
     console.log(res.obj);
   }).catch(e => {
     console.log(e);
   })
   // dynamic import css
-  import('./test.css');
+  import('./styles/test.css');
 }, 2000)

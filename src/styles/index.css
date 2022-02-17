@@ -1,7 +1,8 @@
 /* @import "test.css"; */
 body {
   background-color: silver;
+  background-image: url("@/assets/ye.jpeg");
 }
-a{
+a {
   color: aqua;
 }
